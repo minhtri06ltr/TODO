@@ -37,7 +37,7 @@ function TodoForm() {
             id: v4(),
             title: title,
             description: description,
-            isComplete: false,
+            isCompleted: false,
             deadline: startDate.toDateString(),
             type: type,
           },

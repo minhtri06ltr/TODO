@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -7,30 +7,68 @@ import "react-vertical-timeline-component/style.min.css";
 import SchoolIcon from "@material-ui/icons/School";
 import WorkIcon from "@material-ui/icons/Work";
 import StarIcon from "@material-ui/icons/Star";
+import { MARK_TODO } from "../reducers/types";
+import { TodoContext } from "../contexts/TodoContext";
 
 function TodoItem({ todo, count }) {
+  const { dispatch } = useContext(TodoContext);
   let type = {};
   let icon = <WorkIcon />;
-  console.log(count);
-  if (todo.isComplete === true) {
+
+  if (todo.isCompleted === true) {
     type = {
       background: "rgb(16, 204, 82)",
-      color: "#fff",
+      color: "gray",
     };
-    let icon = <StarIcon />;
-  }
-  if (count % 2 !== 0) {
+    icon = (
+      <StarIcon
+        onClick={() => {
+          dispatch({
+            type: MARK_TODO,
+            payload: {
+              id: todo.id,
+            },
+          });
+        }}
+        style={{ cursor: "pointer" }}
+      />
+    );
+  } else if (count % 2 !== 0) {
     type = {
       background: "rgb(233, 30, 99)",
       color: "#fff",
     };
-    icon = <WorkIcon />;
+    icon = (
+      <WorkIcon
+        onClick={() => {
+          dispatch({
+            type: MARK_TODO,
+            payload: {
+              id: todo.id,
+            },
+          });
+        }}
+        style={{ cursor: "pointer" }}
+      />
+    );
   } else {
     type = {
       background: "rgb(33, 150, 243)",
       color: "#fff",
     };
-    icon = <SchoolIcon />;
+    icon = (
+      <SchoolIcon
+        onClick={() => {
+          dispatch({
+            type: MARK_TODO,
+            payload: {
+              id: todo.id,
+            },
+          });
+        }}
+        style={{ cursor: "pointer" }}
+      />
+    );
   }
   return (
     <VerticalTimelineElement
