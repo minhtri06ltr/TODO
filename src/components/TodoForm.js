@@ -5,20 +5,31 @@ import React, {
 import { v4 } from "uuid";
 import { ADD_TODO } from "../reducers/types";
 import { TodoContext } from "../contexts/TodoContext";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 function TodoForm() {
   const { dispatch } = useContext(TodoContext);
   const [title, setTitle] = useState("");
+  const [type, setType] = useState({
+    value: "select",
+  });
+  const [startDate, setStartDate] = useState(
+    new Date(),
+  );
+
   const [description, setDescription] =
     useState("");
   const inputTitleHandler = (e) => {
     setTitle(e.target.value);
   };
+
   const inputDescriptionHandler = (e) => {
     setDescription(e.target.value);
   };
   const addHandler = (e) => {
     e.preventDefault();
-    if (title && description) {
+    if (title && description && startDate) {
       dispatch({
         type: ADD_TODO,
         payload: {
@@ -27,18 +38,21 @@ function TodoForm() {
             title: title,
             description: description,
             isComplete: false,
+            deadline: startDate.toDateString(),
+            type: type,
           },
         },
       });
       setTitle("");
       setDescription("");
+      setStartDate("");
     } else {
       alert("Please check input again");
     }
   };
   return (
     <div>
-      <div
+      <form
         style={{
           padding: "10px 0",
           display: "flex",
@@ -73,6 +87,13 @@ function TodoForm() {
             backgroundColor: "#f8f8f8",
             resize: "none",
           }}
+        />
+      </form>
+      <div>
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          minDate={new Date()}
         />
       </div>
       <button
