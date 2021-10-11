@@ -7,7 +7,10 @@ import "react-vertical-timeline-component/style.min.css";
 import SchoolIcon from "@material-ui/icons/School";
 import WorkIcon from "@material-ui/icons/Work";
 import StarIcon from "@material-ui/icons/Star";
-import { MARK_TODO } from "../reducers/types";
+import {
+  DELETE_TODO,
+  MARK_TODO,
+} from "../reducers/types";
 import { TodoContext } from "../contexts/TodoContext";
 
 function TodoItem({ todo, count }) {
@@ -86,6 +89,18 @@ function TodoItem({ todo, count }) {
         {todo.title}
       </h3>
       <p>{todo.description}</p>
+      <button
+        onClick={() => {
+          dispatch({
+            type: DELETE_TODO,
+            payload: {
+              id: todo.id,
+            },
+          });
+        }}
+      >
+        Delete
+      </button>
     </VerticalTimelineElement>
   );
 }
