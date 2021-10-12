@@ -2,6 +2,7 @@ import React, {
   createContext,
   useReducer,
   useEffect,
+  useState,
 } from "react";
 import { todoReducer } from "../reducers/TodoReducer";
 import {
@@ -15,6 +16,7 @@ const TodoContextProvider = ({ children }) => {
     todoReducer,
     [],
   );
+  const [todoType, setTodoType] = useState("");
   //get todo when page reload
   useEffect(() => {
     dispatch({
@@ -34,6 +36,8 @@ const TodoContextProvider = ({ children }) => {
   const ContextData = {
     todoList: todoList,
     dispatch,
+    todoType,
+    setTodoType,
   };
   return (
     <TodoContext.Provider value={ContextData}>

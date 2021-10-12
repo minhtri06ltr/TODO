@@ -3,33 +3,39 @@ import React, {
   useContext,
 } from "react";
 import { v4 } from "uuid";
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
 import { ADD_TODO } from "../reducers/types";
 import { TodoContext } from "../contexts/TodoContext";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import UseRadioGroup from "./layouts/UseRadioGroup";
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DateTimePicker from "@mui/lab/DateTimePicker";
 
 function TodoForm() {
-  const { dispatch } = useContext(TodoContext);
+  //Context
+  const { dispatch, todoType } =
+    useContext(TodoContext);
   const [title, setTitle] = useState("");
-  const [type, setType] = useState("");
-  const [startDate, setStartDate] = useState(
-    new Date(),
-  );
+  const [value, setValue] = useState(new Date());
   const [description, setDescription] =
     useState("");
-  const inputTypeHandler = (e) => {
-    setType(e.target.id);
-  };
+  //Function
   const inputTitleHandler = (e) => {
     setTitle(e.target.value);
   };
-
   const inputDescriptionHandler = (e) => {
     setDescription(e.target.value);
   };
   const addHandler = (e) => {
     e.preventDefault();
-    if (title && description && startDate) {
+    if (
+      title &&
+      todoType &&
+      description &&
+      value
+    ) {
       dispatch({
         type: ADD_TODO,
         payload: {
@@ -38,89 +44,92 @@ function TodoForm() {
             title: title,
             description: description,
             isCompleted: false,
-            deadline: startDate.toDateString(),
-            type: type,
+            deadline: value.toString(),
+            type: todoType,
           },
         },
       });
       setTitle("");
       setDescription("");
-      setStartDate("");
+      setValue(null);
     } else {
       alert("Please check input again");
     }
   };
+  //render
   return (
     <div>
-      <form
+      <TextField
         style={{
-          padding: "10px 0",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-          alignItems: "stretch",
+          margin: "20px 0",
+          borderColor: "yellow !important",
         }}
-      >
-        <input
-          type="text"
-          name="title"
-          placeholder="To do title"
-          value={title}
-          onChange={inputTitleHandler}
-          style={{
-            padding: "10px",
-          }}
-        />
-        <input
-          type="textarea"
-          name="description"
-          placeholder="Description"
-          value={description}
-          onChange={inputDescriptionHandler}
-          style={{
-            marginTop: "10px",
-            height: "150px",
-            padding: "12px 20px",
-            boxSizing: "border-box",
-            border: "2px solid #ccc",
-            borderRadius: "4px",
-            backgroundColor: "#f8f8f8",
-            resize: "none",
-          }}
-        />
-      </form>
+        fullWidth
+        id="outlined-basic"
+        id="fullWidth"
+        label="Title"
+        value={title}
+        onChange={inputTitleHandler}
+        variant="outlined"
+        required
+      />
+      <TextField
+        id="outlined-multiline-static"
+        label="Multiline"
+        multiline
+        fullWidth
+        id="fullWidth"
+        rows={4}
+        required
+        label="Description"
+        name="description"
+        value={description}
+        onChange={inputDescriptionHandler}
+      />
       <div>
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          minDate={new Date()}
-        />
+        <UseRadioGroup />
       </div>
-      <div style={{ color: "#fff" }}>
-        <input
-          type="radio"
-          name="type"
-          onChange={inputTypeHandler}
-          id="school"
-        />
-        School
-        <input
-          type="radio"
-          onChange={inputTypeHandler}
-          id="work"
-          name="type"
-        />
-        Work
-      </div>
-      <button
-        onClick={addHandler}
+      <div
         style={{
-          margin: "10px auto",
-          display: "block",
+          textAlign: "center",
         }}
       >
-        Add
-      </button>
+        <LocalizationProvider
+          dateAdapter={AdapterDateFns}
+        >
+          <DateTimePicker
+            renderInput={(params) => (
+              <TextField {...params} />
+            )}
+            label="Choose your deadline"
+            value={value}
+            onChange={(newValue) => {
+              setValue(newValue);
+            }}
+            minDateTime={new Date()}
+          />
+        </LocalizationProvider>
+      </div>
+      <div
+        style={{
+          textAlign: "center",
+          margin: "20px 0",
+        }}
+      >
+        <Button
+          onClick={addHandler}
+          variant="outlined"
+          endIcon={<SendIcon />}
+          size="large"
+          style={{
+            border: "2px solid ",
+            fontWeight: "bold",
+            color: "#0bff17",
+          }}
+        >
+          Add
+        </Button>
+      </div>
     </div>
   );
 }

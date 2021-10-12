@@ -9,6 +9,8 @@ import {
   MARK_TODO,
 } from "../reducers/types";
 import { TodoContext } from "../contexts/TodoContext";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function TodoItem({ todo }) {
   const { dispatch } = useContext(TodoContext);
@@ -84,7 +86,7 @@ function TodoItem({ todo }) {
         borderRight:
           "7px solid  rgb(33, 150, 243)",
       }}
-      date={todo.deadline.toString()}
+      date={todo.deadline.split("G")[0]}
       iconStyle={type}
       icon={icon}
     >
@@ -92,18 +94,32 @@ function TodoItem({ todo }) {
         {todo.title}
       </h3>
       <p>{todo.description}</p>
-      <button
-        onClick={() => {
-          dispatch({
-            type: DELETE_TODO,
-            payload: {
-              id: todo.id,
-            },
-          });
+      <div
+        style={{
+          marginTop: "20px",
+          textAlign: "center",
         }}
       >
-        Delete
-      </button>
+        <Button
+          style={{
+            color: "black",
+            border: "2px solid black",
+            fontWeight: "bold",
+          }}
+          onClick={() => {
+            dispatch({
+              type: DELETE_TODO,
+              payload: {
+                id: todo.id,
+              },
+            });
+          }}
+          variant="outlined"
+          startIcon={<DeleteIcon />}
+        >
+          Delete
+        </Button>
+      </div>
     </VerticalTimelineElement>
   );
 }

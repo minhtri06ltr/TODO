@@ -18,7 +18,7 @@ function TodoList() {
             color: "#fff",
             fontFamily: "monospace",
           }}
-          date={"Let start our journey"}
+          date={"Let start our journey!"}
           iconStyle={{
             background: "rgb(212 ,143, 17)",
             color: "#fff",
