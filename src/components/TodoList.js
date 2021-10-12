@@ -9,18 +9,12 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 function TodoList() {
   const { todoList } = useContext(TodoContext);
-  let count = 1;
   return (
     <>
       <VerticalTimeline>
         {todoList.map((todo) => {
-          count++;
           return (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              count={count}
-            />
+            <TodoItem key={todo.id} todo={todo} />
           );
         })}
 

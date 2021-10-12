@@ -11,15 +11,15 @@ import "react-datepicker/dist/react-datepicker.css";
 function TodoForm() {
   const { dispatch } = useContext(TodoContext);
   const [title, setTitle] = useState("");
-  const [type, setType] = useState({
-    value: "select",
-  });
+  const [type, setType] = useState("");
   const [startDate, setStartDate] = useState(
     new Date(),
   );
-
   const [description, setDescription] =
     useState("");
+  const inputTypeHandler = (e) => {
+    setType(e.target.id);
+  };
   const inputTitleHandler = (e) => {
     setTitle(e.target.value);
   };
@@ -95,6 +95,22 @@ function TodoForm() {
           onChange={(date) => setStartDate(date)}
           minDate={new Date()}
         />
+      </div>
+      <div style={{ color: "#fff" }}>
+        <input
+          type="radio"
+          name="type"
+          onChange={inputTypeHandler}
+          id="school"
+        />
+        School
+        <input
+          type="radio"
+          onChange={inputTypeHandler}
+          id="work"
+          name="type"
+        />
+        Work
       </div>
       <button
         onClick={addHandler}

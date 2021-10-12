@@ -13,7 +13,7 @@ import {
 } from "../reducers/types";
 import { TodoContext } from "../contexts/TodoContext";
 
-function TodoItem({ todo, count }) {
+function TodoItem({ todo }) {
   const { dispatch } = useContext(TodoContext);
   let type = {};
   let icon = <WorkIcon />;
@@ -36,7 +36,7 @@ function TodoItem({ todo, count }) {
         style={{ cursor: "pointer" }}
       />
     );
-  } else if (count % 2 !== 0) {
+  } else if (todo.type === "work") {
     type = {
       background: "rgb(233, 30, 99)",
       color: "#fff",
