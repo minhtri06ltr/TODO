@@ -4,7 +4,7 @@ import TodoList from "../components/TodoList";
 
 function ListView() {
   return (
-    <div style={{ backgroundColor: "#2A0944" }}>
+    <div>
       <TodoForm />
       <TodoList />
     </div>

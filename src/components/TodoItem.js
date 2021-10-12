@@ -6,7 +6,7 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 import SchoolIcon from "@material-ui/icons/School";
 import WorkIcon from "@material-ui/icons/Work";
-import StarIcon from "@material-ui/icons/Star";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import {
   DELETE_TODO,
   MARK_TODO,
@@ -17,14 +17,19 @@ function TodoItem({ todo }) {
   const { dispatch } = useContext(TodoContext);
   let type = {};
   let icon = <WorkIcon />;
+  let markTodo = { wordBreak: "break-all" };
 
   if (todo.isCompleted === true) {
     type = {
-      background: "rgb(16, 204, 82)",
-      color: "gray",
+      background: "rgb(103, 172, 82)",
+      color: "rgba(253 ,245 ,1,1)",
+    };
+    markTodo = {
+      wordBreak: "break-all",
+      textDecoration: "line-through",
     };
     icon = (
-      <StarIcon
+      <CheckCircleOutlineIcon
         onClick={() => {
           dispatch({
             type: MARK_TODO,
@@ -75,6 +80,7 @@ function TodoItem({ todo }) {
   }
   return (
     <VerticalTimelineElement
+      style={markTodo}
       className="vertical-timeline-element--work"
       contentStyle={type}
       contentArrowStyle={{

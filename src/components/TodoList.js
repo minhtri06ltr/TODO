@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import TodoItem from "./TodoItem";
 import { TodoContext } from "../contexts/TodoContext";
 import StarIcon from "@material-ui/icons/Star";
+import AlarmOnIcon from "@material-ui/icons/AlarmOn";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -12,6 +13,13 @@ function TodoList() {
   return (
     <>
       <VerticalTimeline>
+        <VerticalTimelineElement
+          iconStyle={{
+            background: "rgb(212 ,143, 17)",
+            color: "#fff",
+          }}
+          icon={<AlarmOnIcon />}
+        />
         {todoList.map((todo) => {
           return (
             <TodoItem key={todo.id} todo={todo} />
@@ -20,7 +28,7 @@ function TodoList() {
 
         <VerticalTimelineElement
           iconStyle={{
-            background: "rgb(16, 204, 82)",
+            background: "rgba(35, 57 ,179,1)",
             color: "#fff",
           }}
           icon={<StarIcon />}
