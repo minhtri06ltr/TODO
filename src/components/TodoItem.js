@@ -13,7 +13,8 @@ import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 function TodoItem({ todo }) {
-  const { dispatch } = useContext(TodoContext);
+  const { dispatch, setOpenModal } =
+    useContext(TodoContext);
   let type = {};
   let icon = <WorkIcon />;
   let markTodo = { wordBreak: "break-all" };
@@ -77,6 +78,9 @@ function TodoItem({ todo }) {
       />
     );
   }
+  const openModalHandler = (e) => {
+    setOpenModal(true);
+  };
   return (
     <VerticalTimelineElement
       style={markTodo}
@@ -97,7 +101,8 @@ function TodoItem({ todo }) {
       <div
         style={{
           marginTop: "20px",
-          textAlign: "center",
+          justifyContent: "space-between",
+          display: "flex",
         }}
       >
         <Button
@@ -118,6 +123,18 @@ function TodoItem({ todo }) {
           startIcon={<DeleteIcon />}
         >
           Delete
+        </Button>
+        <Button
+          style={{
+            color: "black",
+            border: "2px solid black",
+            fontWeight: "bold",
+          }}
+          variant="outlined"
+          startIcon={<DeleteIcon />}
+          onClick={openModalHandler}
+        >
+          Update
         </Button>
       </div>
     </VerticalTimelineElement>

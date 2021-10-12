@@ -12,11 +12,16 @@ import {
 export const TodoContext = createContext();
 
 const TodoContextProvider = ({ children }) => {
+  //Reducer
   const [todoList, dispatch] = useReducer(
     todoReducer,
     [],
   );
+  //State
+  const [openModal, setOpenModal] =
+    useState(false);
   const [todoType, setTodoType] = useState("");
+  //Effect
   //get todo when page reload
   useEffect(() => {
     dispatch({
@@ -38,6 +43,8 @@ const TodoContextProvider = ({ children }) => {
     dispatch,
     todoType,
     setTodoType,
+    setOpenModal,
+    openModal,
   };
   return (
     <TodoContext.Provider value={ContextData}>
