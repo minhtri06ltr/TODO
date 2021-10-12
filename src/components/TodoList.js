@@ -14,11 +14,16 @@ function TodoList() {
     <>
       <VerticalTimeline>
         <VerticalTimelineElement
+          style={{
+            color: "#fff",
+            fontFamily: "monospace",
+          }}
+          date={"Let start our journey"}
           iconStyle={{
             background: "rgb(212 ,143, 17)",
             color: "#fff",
           }}
-          icon={<AlarmOnIcon />}
+          icon={<AlarmOnIcon color="action" />}
         />
         {todoList.map((todo) => {
           return (
@@ -27,6 +32,11 @@ function TodoList() {
         })}
 
         <VerticalTimelineElement
+          style={{
+            color: "#fff",
+            fontFamily: "monospace",
+          }}
+          date={"Seem too easy right?"}
           iconStyle={{
             background: "rgba(35, 57 ,179,1)",
             color: "#fff",
