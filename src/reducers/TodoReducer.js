@@ -4,6 +4,7 @@ import {
   SET_TODO,
   ADD_TODO,
   DELETE_TODO,
+  UPDATE_TODO,
 } from "./types";
 
 export const todoReducer = (state, action) => {
@@ -20,6 +21,14 @@ export const todoReducer = (state, action) => {
         JSON.stringify(payload.todoList),
       );
       return state;
+    case UPDATE_TODO:
+      const updateTodo = state.map((todo) => {
+        return todo.id === payload.id
+          ? payload
+          : todo;
+      });
+      return updateTodo;
+
     case ADD_TODO:
       return [payload.todo, ...state];
     case DELETE_TODO:

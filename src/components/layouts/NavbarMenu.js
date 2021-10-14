@@ -2,10 +2,9 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-
 import HomeIcon from "@mui/icons-material/Home";
 import IconButton from "@mui/material/IconButton";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import ControlPointDuplicateIcon from "@mui/icons-material/ControlPointDuplicate";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
@@ -45,7 +44,7 @@ export default function NavbarMenu() {
               aria-label="menu"
               sx={{ mr: 2 }}
             >
-              <AddCircleOutlineIcon
+              <ControlPointDuplicateIcon
                 fontSize="large"
                 color="secondary"
               />

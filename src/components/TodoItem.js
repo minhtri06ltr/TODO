@@ -11,9 +11,9 @@ import {
 import { TodoContext } from "../contexts/TodoContext";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import EditIcon from "@mui/icons-material/Edit";
 function TodoItem({ todo }) {
-  const { dispatch, setOpenModal } =
+  const { dispatch, setOpenModal, setTodo } =
     useContext(TodoContext);
   let type = {};
   let icon = <WorkIcon />;
@@ -80,6 +80,7 @@ function TodoItem({ todo }) {
   }
   const openModalHandler = (e) => {
     setOpenModal(true);
+    setTodo(todo);
   };
   return (
     <VerticalTimelineElement
@@ -90,7 +91,9 @@ function TodoItem({ todo }) {
         borderRight:
           "7px solid  rgb(33, 150, 243)",
       }}
-      date={todo.deadline.split("G")[0]}
+      date={
+        todo.deadline.toString().split("G")[0]
+      }
       iconStyle={type}
       icon={icon}
     >
@@ -110,6 +113,7 @@ function TodoItem({ todo }) {
             color: "black",
             border: "2px solid black",
             fontWeight: "bold",
+            lineThrough: "none !important",
           }}
           onClick={() => {
             dispatch({
@@ -126,15 +130,15 @@ function TodoItem({ todo }) {
         </Button>
         <Button
           style={{
-            color: "black",
-            border: "2px solid black",
+            color: "#62ff00",
+            border: "2px solid #62ff00",
             fontWeight: "bold",
           }}
           variant="outlined"
-          startIcon={<DeleteIcon />}
+          startIcon={<EditIcon />}
           onClick={openModalHandler}
         >
-          Update
+          <span>Update</span>
         </Button>
       </div>
     </VerticalTimelineElement>

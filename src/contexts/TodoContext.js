@@ -17,7 +17,15 @@ const TodoContextProvider = ({ children }) => {
     todoReducer,
     [],
   );
+
   //State
+  const [todo, setTodo] = useState({
+    id: "",
+    title: "",
+    description: "",
+    deadline: "",
+    type: "",
+  });
   const [openModal, setOpenModal] =
     useState(false);
   const [todoType, setTodoType] = useState("");
@@ -42,6 +50,8 @@ const TodoContextProvider = ({ children }) => {
     todoList: todoList,
     dispatch,
     todoType,
+    todo,
+    setTodo,
     setTodoType,
     setOpenModal,
     openModal,

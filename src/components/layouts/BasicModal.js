@@ -1,20 +1,19 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useContext } from "react";
 import { TodoContext } from "../../contexts/TodoContext";
-
-import { v4 } from "uuid";
-
-import SendIcon from "@mui/icons-material/Send";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
 import UseRadioGroup from "./UseRadioGroup";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateTimePicker from "@mui/lab/DateTimePicker";
+import { UPDATE_TODO } from "../../reducers/types";
 
 const style = {
   position: "absolute",
@@ -29,18 +28,37 @@ const style = {
 };
 
 export default function BasicModal() {
-  const { openModal, setOpenModal } =
-    useContext(TodoContext);
-  console.log(openModal);
+  const {
+    openModal,
+    setOpenModal,
+    dispatch,
+    todo,
+  } = useContext(TodoContext);
+  const [updateTodo, setUpdateTodo] =
+    useState(todo);
+  //content change when choose different to do
+  useEffect(() => {
+    setUpdateTodo(todo);
+  }, [todo]);
 
-  const handleOpen = () => setOpenModal(true);
+  const inputHandler = (e) => {
+    setUpdateTodo({
+      ...updateTodo,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const submitHandler = () => {
+    dispatch({
+      type: UPDATE_TODO,
+      payload: updateTodo,
+    });
+    setOpenModal(false);
+  };
+  console.log(updateTodo);
   const handleClose = () => setOpenModal(false);
 
   return (
     <div>
-      <Button onClick={handleOpen}>
-        Open modal
-      </Button>
       <Modal
         open={openModal}
         onClose={handleClose}
@@ -61,22 +79,32 @@ export default function BasicModal() {
               id="outlined-basic"
               id="fullWidth"
               label="Title"
+              name="title"
               variant="outlined"
               required
+              value={updateTodo.title}
+              onChange={inputHandler}
             />
             <TextField
               id="outlined-multiline-static"
               label="Multiline"
               multiline
+              name="description"
               fullWidth
               id="fullWidth"
               rows={4}
               required
+              value={updateTodo.description}
               label="Description"
               name="description"
+              onChange={inputHandler}
             />
             <div>
-              <UseRadioGroup />
+              <UseRadioGroup
+                type={updateTodo.type}
+                setUpdateTodo={setUpdateTodo}
+                updateTodo={updateTodo}
+              />
             </div>
             <div
               style={{
@@ -90,9 +118,16 @@ export default function BasicModal() {
                   renderInput={(params) => (
                     <TextField {...params} />
                   )}
+                  name="deadline"
                   label="Choose your deadline"
-                  value={new Date()}
+                  value={updateTodo.deadline}
                   minDateTime={new Date()}
+                  onChange={(newValue) => {
+                    setUpdateTodo({
+                      ...updateTodo,
+                      deadline: newValue,
+                    });
+                  }}
                 />
               </LocalizationProvider>
             </div>
@@ -103,8 +138,9 @@ export default function BasicModal() {
               }}
             >
               <Button
+                onClick={submitHandler}
                 variant="outlined"
-                endIcon={<SendIcon />}
+                endIcon={<ArrowCircleUpIcon />}
                 size="large"
                 style={{
                   border: "2px solid ",
@@ -112,7 +148,7 @@ export default function BasicModal() {
                   color: "#0bff17",
                 }}
               >
-                Add
+                Update
               </Button>
             </div>
           </div>
