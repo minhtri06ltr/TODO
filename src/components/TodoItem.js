@@ -18,15 +18,23 @@ function TodoItem({ todo }) {
   let type = {};
   let icon = <WorkIcon />;
   let markTodo = { wordBreak: "break-all" };
-
+  let updateCompleted = {
+    color: "#62ff00",
+    border: "2px solid #62ff00",
+    fontWeight: "bold",
+  };
   if (todo.isCompleted === true) {
     type = {
       background: "rgb(103, 172, 82)",
       color: "rgba(253 ,245 ,1,1)",
     };
     markTodo = {
-      wordBreak: "break-all",
       textDecoration: "line-through",
+    };
+    updateCompleted = {
+      color: "black",
+      border: "2px solid black",
+      fontWeight: "bold",
     };
     icon = (
       <CheckCircleOutlineIcon
@@ -84,7 +92,7 @@ function TodoItem({ todo }) {
   };
   return (
     <VerticalTimelineElement
-      style={markTodo}
+      style={{ wordBreak: "break-all" }}
       className="vertical-timeline-element--work"
       contentStyle={type}
       contentArrowStyle={{
@@ -97,10 +105,13 @@ function TodoItem({ todo }) {
       iconStyle={type}
       icon={icon}
     >
-      <h3 className="vertical-timeline-element-title">
+      <h3
+        style={markTodo}
+        className="vertical-timeline-element-title"
+      >
         {todo.title}
       </h3>
-      <p>{todo.description}</p>
+      <p style={markTodo}>{todo.description}</p>
       <div
         style={{
           marginTop: "20px",
@@ -113,7 +124,6 @@ function TodoItem({ todo }) {
             color: "black",
             border: "2px solid black",
             fontWeight: "bold",
-            lineThrough: "none !important",
           }}
           onClick={() => {
             dispatch({
@@ -129,16 +139,12 @@ function TodoItem({ todo }) {
           Delete
         </Button>
         <Button
-          style={{
-            color: "#62ff00",
-            border: "2px solid #62ff00",
-            fontWeight: "bold",
-          }}
+          style={updateCompleted}
           variant="outlined"
           startIcon={<EditIcon />}
           onClick={openModalHandler}
         >
-          <span>Update</span>
+          Update
         </Button>
       </div>
     </VerticalTimelineElement>

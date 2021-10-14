@@ -43,11 +43,17 @@ MyFormControlLabel.propTypes = {
 };
 
 export default function UseRadioGroup({ type }) {
-  const { setTodoType } = useContext(TodoContext);
+  const {
+    setTodoType,
+    updateTodo,
+    setUpdateTodo,
+  } = useContext(TodoContext);
   const inputTypeHandler = (e) => {
     setTodoType(e.target.value);
-
-    console.log(e.target.value);
+    setUpdateTodo({
+      ...updateTodo,
+      type: e.target.value,
+    });
   };
   return (
     <>

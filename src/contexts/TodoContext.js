@@ -17,7 +17,6 @@ const TodoContextProvider = ({ children }) => {
     todoReducer,
     [],
   );
-
   //State
   const [todo, setTodo] = useState({
     id: "",
@@ -26,6 +25,10 @@ const TodoContextProvider = ({ children }) => {
     deadline: "",
     type: "",
   });
+  const [updateType, setUpdateType] =
+    useState("");
+  const [updateTodo, setUpdateTodo] =
+    useState(todo);
   const [openModal, setOpenModal] =
     useState(false);
   const [todoType, setTodoType] = useState("");
@@ -55,6 +58,10 @@ const TodoContextProvider = ({ children }) => {
     setTodoType,
     setOpenModal,
     openModal,
+    updateType,
+    setUpdateType,
+    updateTodo,
+    setUpdateTodo,
   };
   return (
     <TodoContext.Provider value={ContextData}>

@@ -1,8 +1,7 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useContext } from "react";
 import { TodoContext } from "../../contexts/TodoContext";
@@ -33,9 +32,10 @@ export default function BasicModal() {
     setOpenModal,
     dispatch,
     todo,
+    updateTodo,
+    setUpdateTodo,
   } = useContext(TodoContext);
-  const [updateTodo, setUpdateTodo] =
-    useState(todo);
+
   //content change when choose different to do
   useEffect(() => {
     setUpdateTodo(todo);
@@ -54,7 +54,6 @@ export default function BasicModal() {
     });
     setOpenModal(false);
   };
-  console.log(updateTodo);
   const handleClose = () => setOpenModal(false);
 
   return (
@@ -125,7 +124,8 @@ export default function BasicModal() {
                   onChange={(newValue) => {
                     setUpdateTodo({
                       ...updateTodo,
-                      deadline: newValue,
+                      deadline:
+                        newValue.toString(),
                     });
                   }}
                 />
