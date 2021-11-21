@@ -132,6 +132,7 @@ function TodoItem({ todo }) {
                 id: todo.id,
               },
             });
+            alert("Delete to do success!");
           }}
           variant="outlined"
           startIcon={<DeleteIcon />}

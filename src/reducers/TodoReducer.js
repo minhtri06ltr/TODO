@@ -9,17 +9,22 @@ import {
 
 export const todoReducer = (state, action) => {
   const { type, payload } = action;
+  console.log(payload);
+  console.log(state);
   switch (type) {
     case GET_TODO:
       const todoList =
         localStorage.getItem("todoList");
       if (todoList) state = JSON.parse(todoList);
+
       return state;
+
     case SET_TODO:
       localStorage.setItem(
         "todoList",
         JSON.stringify(payload.todoList),
       );
+
       return state;
     case UPDATE_TODO:
       const updateTodo = state.map((todo) => {
